@@ -1,0 +1,279 @@
+# Author:Emmanuel Ochieng
+# Date: 2025-06-08
+
+# Title: Diabetes Prediction using Machine Learning
+- Description: This script demonstrates how to build a machine learning model to predict diabetes using the Pima Indians Diabetes Database. The model is trained using Regression algorithms and evaluated based on accuracy and confusion matrix.
+
+```{python}
+# Load necessary libraries and dependencies
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split 
+from sklearn.linear_model import LogisticRegression
+from sklearn import svm
+from sklearn.metrics import accuracy_score, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+```
+
+# Data Loading and Preprocessing
+
+## We will use PIMA Indians Diabetes Database for this example.
+
+ - The reason for using the PIMA Indians Diabetes Database is that it is a well-known dataset in the machine learning community, and it contains various features that can be used to predict diabetes. The dataset consists of 768 samples and 9 attributes, including the target variable (Outcome) which indicates whether a patient has diabetes (1) or not (0).
+ - The dataset contains the following features:
+   - Pregnancies: Number of times pregnant
+   - Glucose: Plasma glucose concentration a 2 hours in an oral glucose tolerance test
+   - BloodPressure: Diastolic blood pressure (mm Hg)
+   - SkinThickness: Triceps skin fold thickness (mm)
+   - Insulin: 2-Hour serum insulin (mu U/ml)
+   - BMI: Body mass index (weight in kg/(height in m)^2)
+   - DiabetesPedigreeFunction: Diabetes pedigree function
+   - Age: Age (years)
+   - Outcome: Class variable (0 or 1) indicating whether the patient has diabetes or not
+```{python}
+# Load the dataset
+diabetes_data = pd.read_csv('https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv', header=None)
+```
+```{python}
+# Name the columns and drop the first column of index
+diabetes_data.columns = ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI', 'DiabetesPedigreeFunction', 'Age', 'Outcome']
+
+# Check the first few rows of the dataset
+diabetes_data.head()
+```
+
+# Data Exploration
+- It is important to explore the dataset to understand its structure, check for missing values, and get a sense of the distribution of the features. This will help in making informed decisions during the preprocessing and modeling stages.
+- We will check the first few rows of the dataset, inspect the data types, check for missing values, and get the shape of the dataset.
+
+```{python}
+# Data inpection
+diabetes_data.info()
+```
+```{python}
+# Check for missing values
+diabetes_data.isnull().sum()
+```
+```{python}
+# Check number of rows and columns
+diabetes_data.shape
+```
+
+- We can see that the dataset has 768 rows (people) and 9 columns (medical information). There are no missing values in the dataset, and all the features are numerical.
+
+# Statistical Summary
+
+- It is also important to get a statistical summary of the dataset to understand the distribution of the features. This will help in identifying any outliers or anomalies in the data.
+
+```{python}
+# Statistical summary of the dataset rouund to 5 decimal places
+diabetes_data.describe().round(5)
+```
+
+- We know the the Outcome column is the target variable, and it is important to check the distribution of the target variable to understand the class imbalance in the dataset. This will help in choosing the right evaluation metrics for the model. Let's find out how many people have diabetes and how many do not.
+
+```{python}
+# Check the distribution of the target variable
+diabetes_data['Outcome'].value_counts()
+```
+
+- The dataset is imbalanced, with 268 people having diabetes (1) and 500 people not having diabetes (0). This means that the model may be biased towards predicting the majority class (0). We will need to take this into account when evaluating the model.
+- We can also visualize the distribution of the target variable using a bar plot.
+
+```{python}
+# distribution of the target variable using a bar plot.
+plt.figure(figsize=(8, 6))
+sns.countplot(x='Outcome', data=diabetes_data, palette='Set2')
+plt.title('Distribution of Diabetic and Non-Diabetic Patients')
+plt.xlabel('Outcome (0 = Non-Diabetic, 1 = Diabetic)')
+plt.ylabel('Number of Patients')
+plt.xticks([0, 1], ['Non-Diabetic', 'Diabetic'])
+plt.show()
+```
+- For the purpose of this project, the dataset is sufficient for machine learning. However, in a real-world scenario, we would need to collect more data to improve the model's performance and generalization.
+
+# Patient Mean Values
+
+- Understanding the mean values of the features for diabetic and non-diabetic patients can provide insights into the characteristics of each group. This can help in feature selection and engineering. It is what the model will learn from and then help detect if an individual is diabetic or not.
+```{python}
+# Patient mean values
+diabetes_data.groupby('Outcome').mean().round(5)
+```
+
+# Let the miracle begin!
+- We will now split the dataset into training and testing sets, standardize the features, and train a logistic regression model and a support vector machine (SVM) model. We will then evaluate the models using accuracy, precision, recall, and F1 score.
+
+- But first we will seperate the data and labels. The data is the features (X) and the labels are the target variable (y).
+```{python}
+# Separate the features and target variable
+X = diabetes_data.drop('Outcome', axis=1)
+y = diabetes_data['Outcome']
+```
+
+- The above code separates the features (X) and the target variable (y). The features are all the columns except the Outcome column, which is the target variable. The `drop` method is used to remove the Outcome column from the dataset, and the `axis=1` parameter specifies that we want to drop a column (not a row). The target variable is stored in the `y` variable.
+
+```{python}
+# Inspect the features and target variable
+print("This is the features:")
+print("\n",X)
+```
+
+```{python}
+print("\n This is the target variable: \n")
+print(y)
+```
+
+- We now need to perform data preprocessing. This includes splitting the dataset into training and testing sets, standardizing the features, and training the models.
+- We will use the `train_test_split` function from the `sklearn.model_selection` module to split the dataset into training and testing sets. We will use 80% of the data for training and 20% for testing. The `random_state` parameter is used to ensure that the split is reproducible.
+
+- Data standization is an important step in the preprocessing pipeline. It helps to scale the features to a common range, which can improve the performance of the model and make better predictions. We will use the `StandardScaler` class from the `sklearn.preprocessing` module to standardize the features.
+
+```{python}
+# Data Standardization
+scaler = StandardScaler()
+```
+```{python}
+scaler.fit(X)
+```
+```{python}
+# Standardize the features
+standardized_data = scaler.transform(X)
+```
+
+- From the above code, we are trying to  standardize the inconsistent features in the dataset.
+
+```{python}
+# Inpect the standardized data
+standardized_data[:5]
+```
+- Ou datta values are now in the range of 0 to 1. This is important because it helps the model to learn better and make better predictions.
+
+```{python}
+# Renaming
+
+X = standardized_data
+Y = diabetes_data['Outcome']
+```
+
+```{python}
+# Inspect the features and target variable
+print("This is the features:")
+print("\n",X )
+```
+
+```{python}
+print("\n This is the target variable: \n")
+print(Y)
+```
+
+- We will now split the dataset into training and testing sets. 
+
+# Training and Testing Sets
+- The training set is used to train the model, and the testing set is used to evaluate the model's performance. The Testing set is not used during the training process, and it is important to keep it separate to get an unbiased evaluation of the model's performance.
+
+```{python}
+# Split the dataset into training and testing sets
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, stratify = Y, random_state=2)
+```
+- The logic behind the above code is to split the dataset into training and testing sets. The `test_size` parameter specifies the proportion of the dataset to include in the test split. The `stratify` parameter is used to ensure that the class distribution in the training and testing sets is similar to that in the original dataset. The `random_state` parameter is used to ensure that the split is reproducible. Our our model should not be able to see the testing set during training. This is important to avoid overfitting and to get an unbiased evaluation of the model's performance.
+
+- Lets examine the shape of the training and testing sets to see how many samples we have in each set.
+
+```{python}
+# Check the shape of the training sets
+print("Shape of the training set: ", X.shape)
+print("Shape of the training set: ", X_train.shape)
+print("Shape of the testing set: ", X_test.shape)
+
+```
+
+- The output of the above code should show that frome the original dataset of 768 samples, we have split the data into training and testing sets. The training set has 614 samples and the testing set has 154 samples. This is because we used 80% of the data for training and 20% for testing.
+
+# Now we can train the models.
+- We will train a logistic regression model and a support vector machine (SVM) model. We will then evaluate the models using accuracy, precision, recall, and F1 score.
+
+
+```{python}
+# Training the Logistic Regression model
+classifier = LogisticRegression()
+```
+
+```{python}
+# Training the regression model on the training s
+classifier.fit(X_train, Y_train)
+```
+
+# Model Evaluation
+- We will evaluate the model using accuracy and confusion matrix. Accuracy is the proportion of correctly predicted samples in the testing set. The confusion matrix is a table that shows the number of true positives, true negatives, false positives, and false negatives. It is a useful tool for evaluating the performance of a classification model.
+
+## Accuracy Score
+```{python}
+# Accuracy score on training data
+X_train_pred = classifier.predict(X_train)
+training_dataAccuracy = accuracy_score(X_train_pred, Y_train)
+print("Training Data Accuracy Score: ", training_dataAccuracy)
+```
+
+```{python}
+# Accuracy score on testing data
+X_test_pred = classifier.predict(X_test)
+testing_dataAccuracy = accuracy_score(X_test_pred, Y_test)
+print("Testing Data Accuracy Score: ", testing_dataAccuracy)
+```
+
+# Building Predictive System
+- We will now build a predictive system that can predict whether a patient has diabetes or not based on the input features. The system will take the input features from the user and use the trained model to make predictions. We will use one sample from the to test the system.
+
+```{python}
+input_data = (5,116,74,0,0,25.6,0.201,30)
+
+# Change the input_data to a numpy array
+input_data_as_numpy_array = np.asarray(input_data)
+
+# Reshape the numpy array to match the instance of one sample used
+input_data_reshaped = input_data_as_numpy_array.reshape(1, -1) 
+
+# Disable feature names validation for the scaler
+scaler.feature_names_in_ = None
+
+# Standardize the input data
+input_data_standardized = scaler.transform(input_data_reshaped)
+
+# Display the standardized input data
+print(input_data_standardized)
+
+# Make prediction
+prediction = classifier.predict(input_data_standardized)
+print("\n", prediction)
+
+# Check the prediction
+if prediction[0] == 0:
+    print("The patient is not diabetic.")
+else:
+    print("The patient is diabetic.")
+```
+
+# Cnfusion Matrix
+```{python}
+# Confusion matrix
+cm = confusion_matrix(Y_test, X_test_pred)
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Non-Diabetic', 'Diabetic'], yticklabels=['Non-Diabetic', 'Diabetic'])
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+```
+
+
+# Correlation Matrix
+```{python}
+# Correlation matrix
+plt.figure(figsize=(10, 8))
+sns.heatmap(diabetes_data.corr(), annot=True, cmap='coolwarm', fmt='.2f')
+plt.title('Correlation Matrix')
+plt.show()
+```
