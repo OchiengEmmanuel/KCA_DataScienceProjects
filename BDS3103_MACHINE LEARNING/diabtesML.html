@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>diabtesml</title>
+<title>Class Practical: Predicting Diabetes Outcomes Using Logistic Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -82,7 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Author:Emmanuel Ochieng</h1>
+<h1 class="title">Class Practical: Predicting Diabetes Outcomes Using Logistic Regression</h1>
 </div>
 
 
@@ -99,6 +99,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="authoremmanuel-ochieng" class="level1">
+<h1>Author:Emmanuel Ochieng</h1>
+</section>
 <section id="date-2025-06-08" class="level1">
 <h1>Date: 2025-06-08</h1>
 </section>
@@ -107,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Description: This script demonstrates how to build a machine learning model to predict diabetes using the Pima Indians Diabetes Database. The model is trained using Regression algorithms and evaluated based on accuracy and confusion matrix.</li>
 </ul>
-<div id="6d3b1b01" class="cell" data-execution_count="1">
+<div id="ed0d76af" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries and dependencies</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -139,11 +142,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Outcome: Class variable (0 or 1) indicating whether the patient has diabetes or not</li>
 </ul></li>
 </ul>
-<div id="12c6b70a" class="cell" data-execution_count="2">
+<div id="9af8c44f" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>diabetes_data <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv'</span>, header<span class="op">=</span><span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="58694961" class="cell" data-execution_count="3">
+<div id="d8ff6760" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Name the columns and drop the first column of index</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>diabetes_data.columns <span class="op">=</span> [<span class="st">'Pregnancies'</span>, <span class="st">'Glucose'</span>, <span class="st">'BloodPressure'</span>, <span class="st">'SkinThickness'</span>, <span class="st">'Insulin'</span>, <span class="st">'BMI'</span>, <span class="st">'DiabetesPedigreeFunction'</span>, <span class="st">'Age'</span>, <span class="st">'Outcome'</span>]</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -243,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>It is important to explore the dataset to understand its structure, check for missing values, and get a sense of the distribution of the features. This will help in making informed decisions during the preprocessing and modeling stages.</li>
 <li>We will check the first few rows of the dataset, inspect the data types, check for missing values, and get the shape of the dataset.</li>
 </ul>
-<div id="ccb49e4d" class="cell" data-execution_count="4">
+<div id="a82c11a7" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data inpection</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>diabetes_data.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -265,7 +268,7 @@ dtypes: float64(2), int64(7)
 memory usage: 54.1 KB</code></pre>
 </div>
 </div>
-<div id="6bc2f63d" class="cell" data-execution_count="5">
+<div id="d22b80d3" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>diabetes_data.isnull().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -281,7 +284,7 @@ Outcome                     0
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="4ca2b99b" class="cell" data-execution_count="6">
+<div id="4e8e7e40" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check number of rows and columns</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>diabetes_data.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -297,7 +300,7 @@ dtype: int64</code></pre>
 <ul>
 <li>It is also important to get a statistical summary of the dataset to understand the distribution of the features. This will help in identifying any outliers or anomalies in the data.</li>
 </ul>
-<div id="a07aae7b" class="cell" data-execution_count="7">
+<div id="42a05fc3" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Statistical summary of the dataset rouund to 5 decimal places</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>diabetes_data.describe().<span class="bu">round</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
@@ -425,7 +428,7 @@ dtype: int64</code></pre>
 <ul>
 <li>We know the the Outcome column is the target variable, and it is important to check the distribution of the target variable to understand the class imbalance in the dataset. This will help in choosing the right evaluation metrics for the model. Let’s find out how many people have diabetes and how many do not.</li>
 </ul>
-<div id="9d5596d7" class="cell" data-execution_count="8">
+<div id="fb622cf1" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the distribution of the target variable</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>diabetes_data[<span class="st">'Outcome'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
@@ -439,7 +442,7 @@ Name: count, dtype: int64</code></pre>
 <li>The dataset is imbalanced, with 268 people having diabetes (1) and 500 people not having diabetes (0). This means that the model may be biased towards predicting the majority class (0). We will need to take this into account when evaluating the model.</li>
 <li>We can also visualize the distribution of the target variable using a bar plot.</li>
 </ul>
-<div id="1e0d0a31" class="cell" data-execution_count="9">
+<div id="82b9cdd6" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of the target variable using a bar plot.</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>sns.countplot(x<span class="op">=</span><span class="st">'Outcome'</span>, data<span class="op">=</span>diabetes_data, palette<span class="op">=</span><span class="st">'Set2'</span>)</span>
@@ -449,7 +452,7 @@ Name: count, dtype: int64</code></pre>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>plt.xticks([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="st">'Non-Diabetic'</span>, <span class="st">'Diabetic'</span>])</span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\ERAPS\AppData\Local\Temp\ipykernel_18848\532206246.py:3: FutureWarning:
+<pre><code>C:\Users\ERAPS\AppData\Local\Temp\ipykernel_20412\532206246.py:3: FutureWarning:
 
 
 
@@ -474,7 +477,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <ul>
 <li>Understanding the mean values of the features for diabetic and non-diabetic patients can provide insights into the characteristics of each group. This can help in feature selection and engineering. It is what the model will learn from and then help detect if an individual is diabetic or not.</li>
 </ul>
-<div id="200aacfb" class="cell" data-execution_count="10">
+<div id="1f8691df" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Patient mean values</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>diabetes_data.groupby(<span class="st">'Outcome'</span>).mean().<span class="bu">round</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
@@ -542,7 +545,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <li><p>We will now split the dataset into training and testing sets, standardize the features, and train a logistic regression model and a support vector machine (SVM) model. We will then evaluate the models using accuracy, precision, recall, and F1 score.</p></li>
 <li><p>But first we will seperate the data and labels. The data is the features (X) and the labels are the target variable (y).</p></li>
 </ul>
-<div id="3fdad52d" class="cell" data-execution_count="11">
+<div id="7798a92b" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Separate the features and target variable</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> diabetes_data.drop(<span class="st">'Outcome'</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> diabetes_data[<span class="st">'Outcome'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -550,7 +553,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <ul>
 <li>The above code separates the features (X) and the target variable (y). The features are all the columns except the Outcome column, which is the target variable. The <code>drop</code> method is used to remove the Outcome column from the dataset, and the <code>axis=1</code> parameter specifies that we want to drop a column (not a row). The target variable is stored in the <code>y</code> variable.</li>
 </ul>
-<div id="8a9702eb" class="cell" data-execution_count="12">
+<div id="68235b19" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the features and target variable</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"This is the features:"</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -586,7 +589,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 [768 rows x 8 columns]</code></pre>
 </div>
 </div>
-<div id="36418962" class="cell" data-execution_count="13">
+<div id="8c9b83c1" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st"> This is the target variable: </span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -612,11 +615,11 @@ Name: Outcome, Length: 768, dtype: int64</code></pre>
 <li><p>We will use the <code>train_test_split</code> function from the <code>sklearn.model_selection</code> module to split the dataset into training and testing sets. We will use 80% of the data for training and 20% for testing. The <code>random_state</code> parameter is used to ensure that the split is reproducible.</p></li>
 <li><p>Data standization is an important step in the preprocessing pipeline. It helps to scale the features to a common range, which can improve the performance of the model and make better predictions. We will use the <code>StandardScaler</code> class from the <code>sklearn.preprocessing</code> module to standardize the features.</p></li>
 </ul>
-<div id="4a9551ed" class="cell" data-execution_count="14">
+<div id="9cff29ee" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Standardization</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="1820eaab" class="cell" data-execution_count="15">
+<div id="b7dee73f" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>scaler.fit(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <style>#sk-container-id-1 {
@@ -1026,14 +1029,14 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>StandardScaler()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;StandardScaler<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="a4b88447" class="cell" data-execution_count="16">
+<div id="52d87e17" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize the features</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>standardized_data <span class="op">=</span> scaler.transform(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>From the above code, we are trying to standardize the inconsistent features in the dataset.</li>
 </ul>
-<div id="a7d6d5b0" class="cell" data-execution_count="17">
+<div id="f2b4ae7f" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inpect the standardized data</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>standardized_data[:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
@@ -1052,13 +1055,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <ul>
 <li>Ou datta values are now in the range of 0 to 1. This is important because it helps the model to learn better and make better predictions.</li>
 </ul>
-<div id="ce37b913" class="cell" data-execution_count="18">
+<div id="18b8634a" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Renaming</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> standardized_data</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> diabetes_data[<span class="st">'Outcome'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="eafb26ef" class="cell" data-execution_count="19">
+<div id="aeb4eda3" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the features and target variable</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"This is the features:"</span>)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>,X )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1080,7 +1083,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   -0.87137393]]</code></pre>
 </div>
 </div>
-<div id="6b0c91c5" class="cell" data-execution_count="20">
+<div id="5cfbe134" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st"> This is the target variable: </span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1110,7 +1113,7 @@ Name: Outcome, Length: 768, dtype: int64</code></pre>
 <ul>
 <li>The training set is used to train the model, and the testing set is used to evaluate the model’s performance. The Testing set is not used during the training process, and it is important to keep it separate to get an unbiased evaluation of the model’s performance.</li>
 </ul>
-<div id="f5879b23" class="cell" data-execution_count="21">
+<div id="2638f3b3" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the dataset into training and testing sets</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>X_train, X_test, Y_train, Y_test <span class="op">=</span> train_test_split(X, Y, test_size<span class="op">=</span><span class="fl">0.2</span>, stratify <span class="op">=</span> Y, random_state<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1118,7 +1121,7 @@ Name: Outcome, Length: 768, dtype: int64</code></pre>
 <li><p>The logic behind the above code is to split the dataset into training and testing sets. The <code>test_size</code> parameter specifies the proportion of the dataset to include in the test split. The <code>stratify</code> parameter is used to ensure that the class distribution in the training and testing sets is similar to that in the original dataset. The <code>random_state</code> parameter is used to ensure that the split is reproducible. Our our model should not be able to see the testing set during training. This is important to avoid overfitting and to get an unbiased evaluation of the model’s performance.</p></li>
 <li><p>Lets examine the shape of the training and testing sets to see how many samples we have in each set.</p></li>
 </ul>
-<div id="4d804741" class="cell" data-execution_count="22">
+<div id="360187f5" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the shape of the training sets</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape of the training set: "</span>, X.shape)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape of the training set: "</span>, X_train.shape)</span>
@@ -1138,11 +1141,11 @@ Shape of the testing set:  (154, 8)</code></pre>
 <ul>
 <li>We will train a logistic regression model and a support vector machine (SVM) model. We will then evaluate the models using accuracy, precision, recall, and F1 score.</li>
 </ul>
-<div id="6005e6fe" class="cell" data-execution_count="23">
+<div id="78626e29" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Training the Logistic Regression model</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> LogisticRegression()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="28962004" class="cell" data-execution_count="24">
+<div id="9fdc7753" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Training the regression model on the training s</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>classifier.fit(X_train, Y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
@@ -1561,7 +1564,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </ul>
 <section id="accuracy-score" class="level2">
 <h2 class="anchored" data-anchor-id="accuracy-score">Accuracy Score</h2>
-<div id="95b84734" class="cell" data-execution_count="25">
+<div id="198eefd3" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Accuracy score on training data</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>X_train_pred <span class="op">=</span> classifier.predict(X_train)</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>training_dataAccuracy <span class="op">=</span> accuracy_score(X_train_pred, Y_train)</span>
@@ -1570,7 +1573,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <pre><code>Training Data Accuracy Score:  0.7850162866449512</code></pre>
 </div>
 </div>
-<div id="ee821a3f" class="cell" data-execution_count="26">
+<div id="5f612677" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Accuracy score on testing data</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>X_test_pred <span class="op">=</span> classifier.predict(X_test)</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>testing_dataAccuracy <span class="op">=</span> accuracy_score(X_test_pred, Y_test)</span>
@@ -1586,7 +1589,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <ul>
 <li>We will now build a predictive system that can predict whether a patient has diabetes or not based on the input features. The system will take the input features from the user and use the trained model to make predictions. We will use one sample from the to test the system.</li>
 </ul>
-<div id="88b8f0ab" class="cell" data-execution_count="27">
+<div id="286934b5" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>input_data <span class="op">=</span> (<span class="dv">5</span>,<span class="dv">116</span>,<span class="dv">74</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">25.6</span>,<span class="fl">0.201</span>,<span class="dv">30</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the input_data to a numpy array</span></span>
@@ -1624,7 +1627,7 @@ The patient is not diabetic.</code></pre>
 </section>
 <section id="cnfusion-matrix" class="level1">
 <h1>Cnfusion Matrix</h1>
-<div id="46992717" class="cell" data-execution_count="28">
+<div id="2fdc7f58" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Confusion matrix</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(Y_test, X_test_pred)</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
@@ -1644,7 +1647,7 @@ The patient is not diabetic.</code></pre>
 </section>
 <section id="correlation-matrix" class="level1">
 <h1>Correlation Matrix</h1>
-<div id="b65a7eda" class="cell" data-execution_count="29">
+<div id="320b3b64" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation matrix</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>sns.heatmap(diabetes_data.corr(), annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, fmt<span class="op">=</span><span class="st">'.2f'</span>)</span>
