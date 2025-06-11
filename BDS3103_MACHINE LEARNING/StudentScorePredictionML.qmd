@@ -1,37 +1,12 @@
-# KCA University
+
 ---
-title: "Student Exam Performance Prediction"
-author: "Emmanuel Ochieng"
-date: "`r Sys.Date()`"
-format: 
-  html: 
-    toc: true
-    toc-title: "Table of Contents"
-    toc-depth: 2
-    code-fold: true
-    code-summary: "Show/Hide Code"
-    code-line-numbers: true
-    fig-width: 8
-    fig-height: 6
-    fig-caption: true
-    self-contained: true
-    theme: "flatly"
-    highlight-style: "pygments"
-execute:
-  echo: true
-  warning: false
-  message: false
-  error: false
-  cache: false
-  results: "markup"
-  fig-show: "hold"
-  fig-cap: true
-    fig-align: "center"
+School: KCA University
+Title: "Student Exam Performance Prediction"
+Author: "Emmanuel Ochieng"
+Date: 2025-06-11
 ---
 # Predicting Student Exam Performance
-
-# Author:Emmanuel Ochieng
-# Date: 2025-06-11
+This project aims to predict student exam performance using machine learning techniques. The dataset used is the Student Performance Data Set from the UCI Machine Learning Repository, which contains various features related to student demographics and study behavior.
 
 ## Problem Statement:
 - You are provided with a dataset containing student demographic information and study behavior. Your task is to build and evaluate a machine learning model that predicts whether a student will pass or fail based on their features.
