@@ -1,10 +1,10 @@
 
----
-School: KCA University
-Title: "Student Exam Performance Prediction"
-Author: "Emmanuel Ochieng"
-Date: 2025-06-11
----
+
+# School: KCA University
+# Title: "Student Exam Performance Prediction"
+# Author: "Emmanuel Ochieng"
+# Date: 2025-06-11
+
 # Predicting Student Exam Performance
 This project aims to predict student exam performance using machine learning techniques. The dataset used is the Student Performance Data Set from the UCI Machine Learning Repository, which contains various features related to student demographics and study behavior.
 
