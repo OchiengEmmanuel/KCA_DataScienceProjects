@@ -1,8 +1,8 @@
 
 
 # School: KCA University
-# Title: "Student Exam Performance Prediction"
-# Author: "Emmanuel Ochieng"
+# Title: Student Exam Performance Prediction
+# Author: Emmanuel Oduor Ochieng
 # Date: 2025-06-11
 
 # Predicting Student Exam Performance
