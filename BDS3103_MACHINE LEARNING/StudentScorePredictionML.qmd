@@ -67,7 +67,7 @@ data.describe()
 ```
 ```{python}
 # Determine the target variable
- # 'G3' is the final grade (0-20) of the student, which we will use to predict pass/fail status
+# 'G3' is the final grade (0-20) of the student, which we will use to predict pass/fail status
 target = 'G3'
 
 # Convert the target variable to binary (pass/fail) 
